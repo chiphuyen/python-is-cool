@@ -9,7 +9,7 @@ GitHub has problem rendering Jupyter notebook so I copied the content here. I st
 ## 1. Lambda, map, filter, reduce
 The lambda keyword is used to create inline functions. The functions`square_fn` and `square_ld` below are identical.
 
-```
+```python
 def square_fn(x):
     return x * x
 
@@ -23,7 +23,7 @@ Its quick declaration makes `lambda` function ideal for using in callbacks, func
 
 `map(fn, iterable)` applies the `fn` to all elements of the `iterable` (e.g. list, set, dictionary, tuple, string) and returns a map object.
 
-```
+```python
 nums = [1/3, 333/7, 2323/2230, 40/34, 2/3]
 nums_squared = [num * num for num in nums]
 print(nums_squared)
@@ -33,7 +33,7 @@ print(nums_squared)
 
 This is the same as calling using `map` with a callback function.
 
-```
+```python
 nums_squared_1 = map(square_fn, nums)
 nums_squared_2 = map(lambda x : x * x, nums)
 print(list(nums_squared_1))
@@ -43,7 +43,7 @@ print(list(nums_squared_1))
 
 You can also use map with more than one iterables. For example, if you want to calculate the mean squared error of a simple linear function `f(x) = ax + b` with the true label `labels`, these two methods are equivalent.
 
-```
+```python
 a, b = 3, -0.5
 xs = [2, 3, 4, 5]
 labels = [6.4, 8.9, 10.9, 15.3]
@@ -67,7 +67,7 @@ Note that objects returned by `map` and `filter` are iterators, which means that
 
 `filter(fn, iterable)` works the same way as `map`, except that `fn` returns a boolean value and `filter` returns all the elements of the `iterable` for which the `fn` returns True.
 
-```
+```python
 bad_preds = filter(lambda x: x > 0.5, errors)
 print(list(bad_preds))
 
@@ -76,7 +76,7 @@ print(list(bad_preds))
 
 `reduce(fn, iterable, initializer)` is used when we want to iteratively apply an operator to all elements in a list. For example, if we want to calculate the product of all elements in a list:
 
-```
+```python
 product = 1
 for num in nums:
     product *= num
@@ -86,7 +86,7 @@ print(product)
 ```
 
 This is equivalent to:
-```
+```python
 from functools import reduce
 product = reduce(lambda x, y: x * y, nums)
 print(product)
@@ -98,7 +98,7 @@ Python lists are super cool.
 
 ### 2.1 Unpacking
 We can unpack a list by each element like this:
-```
+```python
 elems = [1, 2, 3, 4]
 a, b, c, d = elems
 print(a, b, c, d)
@@ -108,7 +108,7 @@ print(a, b, c, d)
 
 We can also unpack a list like this:
 
-```
+```python
 a, *new_elems, d = elems
 print(a)
 print(new_elems)
@@ -122,7 +122,7 @@ print(d)
 ### 2.2 Slicing
 We know that we can reverse a list using `[::-1]`.
 
-```
+```python
 elems = list(range(10))
 print(elems)
 
@@ -134,7 +134,7 @@ print(elems[::-1])
 ```
 The syntax `[x:y:z]` means "take every zth element of a list from index x to index y". When z is negative, it means going backwards. When x isn't specified, it's default to the first element of the list in the direction you traverse the list. When y isn't specified, it's default to the last element of the list. So if we want to take every 2th element of a list, we use `[::2]`.
 
-```
+```python
 evens = elems[::2]
 print(evens)
 
@@ -147,7 +147,7 @@ print(reversed_evens)
 
 We can also use slicing to delete all the even numbers in the list.
 
-```
+```python
 del elems[::2]
 print(elems)
 
@@ -157,7 +157,7 @@ print(elems)
 ### 2.3 Insertion
 We can change the value of an element in a list to another value.
 
-```
+```python
 elems = list(range(10))
 elems[1] = 10
 print(elems)
@@ -167,7 +167,7 @@ print(elems)
 
 If we want to replace the element at an index with multiple elements, e.g. replace the value `1` with 3 values `20, 30, 40`:
 
-```
+```python
 elems = list(range(10))
 elems[1:2] = [20, 30, 40]
 print(elems)
@@ -177,7 +177,7 @@ print(elems)
 
 If we want to insert 3 values `0.2, 0.3, 0.5` between element at index 0 and element at index 1:
 
-```
+```pyhon
 elems = list(range(10))
 elems[1:1] = [0.2, 0.3, 0.5]
 print(elems)
@@ -188,7 +188,7 @@ print(elems)
 ### 2.4 Flattening
 We can flatten a list of lists using `sum`.
 
-```
+```python
 list_of_lists = [[1], [2, 3], [4, 5, 6]]
 sum(list_of_lists, [])
 
@@ -197,7 +197,7 @@ sum(list_of_lists, [])
 
 If we have nested lists, we can recursively flatten it. That's another beauty of lambda functions -- we can use it in the same line as its creation.
 
-```
+```python
 nested_lists = [[1, 2], [[3, 4], [5, 6], [[7, 8], [9, 10], [[11, [12, 13]]]]]]
 flatten = lambda x: [y for l in x for y in flatten(l)] if type(x) is list else [x]
 flatten(nested_lists)
@@ -211,7 +211,7 @@ To illustrate the difference between a list and a generator, let's look at an ex
 
 One way to create n-grams is to use a sliding window.
 
-```
+```python
 tokens = ['i', 'want', 'to', 'go', 'to', 'school']
 
 def ngrams(tokens, n):
@@ -233,7 +233,7 @@ In the above example, we have to store all the n-grams at the same time. If the 
 
 Instead of using a list to store all n-grams, we can use a generator that generates the next n-gram when it's asked. This is known as lazy evaluation. We can make the function `ngrams` returns a generator using the keyword `yield`. Then the memory requirement is `O(n)`.
 
-```
+```python
 def ngrams(tokens, n):
     length = len(tokens)
     for i in range(length - n + 1):
@@ -255,7 +255,7 @@ for ngram in ngrams_generator:
 
 Another way is generate n-grams is to use slices to create lists: `[0, 1, ..., -n]`, `[1, 2, ..., -n+1]`, ..., `[n-1, n, ..., -1]`, and then `zip` them together.
 
-```
+```python
 def ngrams(tokens, n):
     length = len(tokens)
     slices = (tokens[i:length-n+i+1] for i in range(n))
@@ -280,7 +280,7 @@ Note that to create slices, we use `(tokens[...] for i in range(n))` instead of 
 ## 3. Classes and magic methods
 In Python, magic methods are prefixed and suffixed with tbe double underscore `__`, also known as dunder. The most wellknown magic method is probably `__init__`.
 
-```
+```python
 class Node:
     """ A struct to denote the node of a binary tree.
     It contains a value and pointers to left and right children.
@@ -293,14 +293,14 @@ class Node:
 
 When we try to print out a Node object, however, it's not very interpretable.
 
-```
+```python
 root = Node(5)
 print(root) # <__main__.Node object at 0x1069c4518>
 ```
 
 Ideally, when user prints out a node, we want to print out the node's value and the values of its children if it has children. To do so, we use the magic method `__repr__`, which must return a printable object, like string.
 
-```
+```python
 class Node:
     """ A struct to denote the node of a binary tree.
     It contains a value and pointers to left and right children.
@@ -323,7 +323,7 @@ print(root) # value: 5, left: 4, right: None
 
 We'd also like to compare two nodes by comparing their values. To do so, we overload the operator `==` with `__eq__`, `<` with `__lt__`, and `>=` with `__ge__`.
 
-```
+```python
 class Node:
     """ A struct to denote the node of a binary tree.
     It contains a value and pointers to left and right children.
@@ -360,7 +360,7 @@ Some of the methods that I highly recommend:
 
 For classes like Node where we know for sure all the attributes they can support (in the case of Node, they are `value`, `left`, and `right`), we might want to use `__slots__` to denote those values for both performance boost and memory saving. For a comprehensive understanding of pros and cons of `__slots__`, see this [absolutely amazing answer by Aaron Hall on StackOverflow](https://stackoverflow.com/a/28059785/5029595).
 
-```
+```python
 class Node:
     """ A struct to denote the node of a binary tree.
     It contains a value and pointers to left and right children.
@@ -374,7 +374,7 @@ class Node:
 ## 4. local namespace, object's attributes
 The `locals()` function returns a dictionary containing the variables defined in the local namespace.
 
-```
+```python
 class Model1:
     def __init__(self, hidden_size=100, num_layers=3, learning_rate=3e-4):
         print(locals())
@@ -388,7 +388,7 @@ model1 = Model1()
 ```
 
 All attributes of an object is stored in its `__dict__`.
-```
+```python
 print(model1.__dict__)
 
 ==> {'hidden_size': 100, 'num_layers': 3, 'learning_rate': 0.0003}
@@ -396,7 +396,7 @@ print(model1.__dict__)
 
 Note that manually assigning each of the argument to an attribute can be quite tiring when the list of the arguments is large. To avoid this, we can directly assign the list of arguments to the object's `__dict__`.
 
-```
+```python
 class Model2:
     def __init__(self, hidden_size=100, num_layers=3, learning_rate=3e-4):
         params = locals()
@@ -411,7 +411,7 @@ print(model2.__dict__)
 
 This can be especially convenient when the object is initiated using the catch-all `**kwargs`, though the use of `**kwargs` should be reduced to the minimum.
 
-```
+```python
 class Model3:
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
@@ -433,35 +433,37 @@ This is irresponsible because it will import everything in module, even the impo
 
 `parts.py`
 
-    import numpy
-    import tensorflow
+```python
+import numpy
+import tensorflow
     
-    class Encoder:
-        ...
+class Encoder:
+    ...
     
-    class Decoder:
-        ...
+class Decoder:
+    ...
         
-    class Loss:
-        ...
+class Loss:
+    ...
+
+def helper(*args, **kwargs):
+    ...
     
-    def helper(*args, **kwargs):
-        ...
-    
-    def utils(*args, **kwargs):
-        ...
+def utils(*args, **kwargs):
+    ...
+```
 
 Since `parts.py` doesn't have `__all__` specified, `file.py` will import Encoder, Decoder, Loss, utils, helper together with numpy and tensorflow.
 
 If we intend that only Endoer, Decoder, and Loss are ever to be imported and used in another module, we should specify that in `parts.py` using the `__all__` keyword.
 
 `parts.py`
+ ```python
+ __all__ = ['Encoder', 'Decoder', 'Loss']
+import numpy
+import tensorflow
     
-    __all__ = ['Encoder', 'Decoder', 'Loss']
-    import numpy
-    import tensorflow
-    
-    class Encoder:
-        ...
-
+class Encoder:
+    ...
+```
 Now, if some user irresponsibly does a wild import with `parts`, they can only import Encoder, Decoder, Loss. Personally, I also find `__all__` helpful as it gives me an overview of the module.
