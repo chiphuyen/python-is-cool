@@ -455,7 +455,7 @@ def utils(*args, **kwargs):
 
 Since `parts.py` doesn't have `__all__` specified, `file.py` will import Encoder, Decoder, Loss, utils, helper together with numpy and tensorflow.
 
-If we intend that only Endoer, Decoder, and Loss are ever to be imported and used in another module, we should specify that in `parts.py` using the `__all__` keyword.
+If we intend that only Encoder, Decoder, and Loss are ever to be imported and used in another module, we should specify that in `parts.py` using the `__all__` keyword.
 
 `parts.py`
  ```python
