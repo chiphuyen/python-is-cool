@@ -115,8 +115,8 @@ print(new_elems)
 print(d)
 
 ==> 1
-	[2, 3]
-	4
+    [2, 3]
+    4
 ```
 
 ### 2.2 Slicing
@@ -130,7 +130,7 @@ print(elems)
 
 print(elems[::-1])
 
-[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+==> [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 ```
 The syntax `[x:y:z]` means "take every zth element of a list from index x to index y". When z is negative, it means going backwards. When x isn't specified, it's default to the first element of the list in the direction you traverse the list. When y isn't specified, it's default to the last element of the list. So if we want to take every 2th element of a list, we use `[::2]`.
 
@@ -142,7 +142,7 @@ reversed_evens = elems[-2::-2]
 print(reversed_evens)
 
 ==> [0, 2, 4, 6, 8]
-	[8, 6, 4, 2, 0]
+    [8, 6, 4, 2, 0]
 ```
 
 We can also use slicing to delete all the even numbers in the list.
@@ -224,9 +224,9 @@ def ngrams(tokens, n):
 print(ngrams(tokens, 3))
 
 ==> [['i', 'want', 'to'],
-	 ['want', 'to', 'go'],
-	 ['to', 'go', 'to'],
-	 ['go', 'to', 'school']]
+     ['want', 'to', 'go'],
+     ['to', 'go', 'to'],
+     ['go', 'to', 'school']]
 ```
 
 In the above example, we have to store all the n-grams at the same time. If the text has m tokens, then the memory requirement is `O(nm)`, which can be problematic when m is large.
@@ -248,9 +248,9 @@ for ngram in ngrams_generator:
     print(ngram)
 
 ==> ['i', 'want', 'to']
-	['want', 'to', 'go']
-	['to', 'go', 'to']
-	['go', 'to', 'school']
+    ['want', 'to', 'go']
+    ['to', 'go', 'to']
+    ['go', 'to', 'school']
 ```
 
 Another way is generate n-grams is to use slices to create lists: `[0, 1, ..., -n]`, `[1, 2, ..., -n+1]`, ..., `[n-1, n, ..., -1]`, and then `zip` them together.
@@ -270,9 +270,9 @@ for ngram in ngrams_generator:
     print(ngram)
 
 ==> ('i', 'want', 'to')
-	('want', 'to', 'go')
-	('to', 'go', 'to')
-	('go', 'to', 'school')
+    ('want', 'to', 'go')
+    ('to', 'go', 'to')
+    ('go', 'to', 'school')
 ```
 
 Note that to create slices, we use `(tokens[...] for i in range(n))` instead of `[tokens[...] for i in range(n)]`. `[]` is the normal list comprehension that returns a list. `()` returns a generator.
