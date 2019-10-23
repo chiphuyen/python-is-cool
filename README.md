@@ -1,8 +1,8 @@
-# python-cool-features
+# python-is-cool
 
-A gentle guide to Python features that I didn't know exist or was too afraid to use. Will be updated as I learn more and become less lazy.
+A gentle guide to the Python features that I didn't know existed or was too afraid to use. This will be updated as I learn more and become less lazy.
 
-This use `python >= 3.6`.
+This uses `python >= 3.6`.
 
 GitHub has problem rendering Jupyter notebook so I copied the content here. I still keep the notebook in case you want to clone and run it on your machine, but you can also click the Binder badge below and run it in your browser.
 
@@ -15,13 +15,13 @@ The lambda keyword is used to create inline functions. The functions`square_fn` 
 def square_fn(x):
     return x * x
 
-square_ld = lambda x : x * x
+square_ld = lambda x: x * x
 
 for i in range(10):
     assert square_fn(i) == square_ld(i)
 ```
 
-Its quick declaration makes `lambda` function ideal for using in callbacks, functions that are passed as arguments to other functions. They are especially useful when used in junction with functions like `map`, `filter`, and `reduce`.
+Its quick declaration makes `lambda` functions ideal for use in callbacks, and when functions are to be passed as arguments to other functions. They are especially useful when used in conjunction with functions like `map`, `filter`, and `reduce`.
 
 `map(fn, iterable)` applies the `fn` to all elements of the `iterable` (e.g. list, set, dictionary, tuple, string) and returns a map object.
 
@@ -37,13 +37,13 @@ This is the same as calling using `map` with a callback function.
 
 ```python
 nums_squared_1 = map(square_fn, nums)
-nums_squared_2 = map(lambda x : x * x, nums)
+nums_squared_2 = map(lambda x: x * x, nums)
 print(list(nums_squared_1))
 
 ==> [0.1111111, 2263.04081632, 1.085147, 1.384083, 0.44444444]
 ```
 
-You can also use map with more than one iterables. For example, if you want to calculate the mean squared error of a simple linear function `f(x) = ax + b` with the true label `labels`, these two methods are equivalent.
+You can also use `map` with more than one iterable. For example, if you want to calculate the mean squared error of a simple linear function `f(x) = ax + b` with the true label `labels`, these two methods are equivalent:
 
 ```python
 a, b = 3, -0.5
@@ -95,6 +95,15 @@ print(product)
 
 ==> 12.95564683272412
 ```
+
+### Note on the performance of lambda functions
+
+Lambda functions are meant for one time use. Each time `lambda x: dosomething(x)` is called, the function has to be created, which hurts the performance if you call `lambda x: dosomething(x)` multiple times (e.g. when you pass it inside `reduce`).
+
+When you assign a name to the lambda function as in `fn = lambda x: dosomething(x)`, its performance is slightly slower than the same function defined using `def`, but the difference is negligible. See [here](https://stackoverflow.com/questions/26540885/lambda-is-slower-than-function-call-in-python-why).
+
+Even though I find lambdas cool, I personally recommend using named functions when you can for the sake of clarity.
+
 ## 2. List manipulation
 Python lists are super cool.
 
@@ -134,7 +143,7 @@ print(elems[::-1])
 
 ==> [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 ```
-The syntax `[x:y:z]` means "take every zth element of a list from index x to index y". When z is negative, it means going backwards. When x isn't specified, it's default to the first element of the list in the direction you traverse the list. When y isn't specified, it's default to the last element of the list. So if we want to take every 2th element of a list, we use `[::2]`.
+The syntax `[x:y:z]` means \"take every `z`th element of a list from index `x` to index `y`\". When `z` is negative, it indicates going backwards. When `x` isn't specified, it defaults to the first element of the list in the direction you are traversing the list. When `y` isn't specified, it defaults to the last element of the list. So if we want to take every 2th element of a list, we use `[::2]`.
 
 ```python
 evens = elems[::2]
@@ -233,7 +242,7 @@ print(ngrams(tokens, 3))
 
 In the above example, we have to store all the n-grams at the same time. If the text has m tokens, then the memory requirement is `O(nm)`, which can be problematic when m is large.
 
-Instead of using a list to store all n-grams, we can use a generator that generates the next n-gram when it's asked. This is known as lazy evaluation. We can make the function `ngrams` returns a generator using the keyword `yield`. Then the memory requirement is `O(n)`.
+Instead of using a list to store all n-grams, we can use a generator that generates the next n-gram when it's asked for. This is known as lazy evaluation. We can make the function `ngrams` returns a generator using the keyword `yield`. Then the memory requirement is `O(m+n)`.
 
 ```python
 def ngrams(tokens, n):
@@ -255,7 +264,7 @@ for ngram in ngrams_generator:
     ['go', 'to', 'school']
 ```
 
-Another way is generate n-grams is to use slices to create lists: `[0, 1, ..., -n]`, `[1, 2, ..., -n+1]`, ..., `[n-1, n, ..., -1]`, and then `zip` them together.
+Another way to generate n-grams is to use slices to create lists: `[0, 1, ..., -n]`, `[1, 2, ..., -n+1]`, ..., `[n-1, n, ..., -1]`, and then `zip` them together.
 
 ```python
 def ngrams(tokens, n):
@@ -280,7 +289,7 @@ for ngram in ngrams_generator:
 Note that to create slices, we use `(tokens[...] for i in range(n))` instead of `[tokens[...] for i in range(n)]`. `[]` is the normal list comprehension that returns a list. `()` returns a generator.
 
 ## 3. Classes and magic methods
-In Python, magic methods are prefixed and suffixed with tbe double underscore `__`, also known as dunder. The most wellknown magic method is probably `__init__`.
+In Python, magic methods are prefixed and suffixed with the double underscore `__`, also known as dunder. The most wellknown magic method is probably `__init__`.
 
 ```python
 class Node:
@@ -389,14 +398,14 @@ model1 = Model1()
 ==> {'learning_rate': 0.0003, 'num_layers': 3, 'hidden_size': 100, 'self': <__main__.Model1 object at 0x1069b1470>}
 ```
 
-All attributes of an object is stored in its `__dict__`.
+All attributes of an object are stored in its `__dict__`.
 ```python
 print(model1.__dict__)
 
 ==> {'hidden_size': 100, 'num_layers': 3, 'learning_rate': 0.0003}
 ```
 
-Note that manually assigning each of the argument to an attribute can be quite tiring when the list of the arguments is large. To avoid this, we can directly assign the list of arguments to the object's `__dict__`.
+Note that manually assigning each of the arguments to an attribute can be quite tiring when the list of the arguments is large. To avoid this, we can directly assign the list of arguments to the object's `__dict__`.
 
 ```python
 class Model2:
