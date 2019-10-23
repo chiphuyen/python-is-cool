@@ -4,7 +4,9 @@ A gentle guide to Python features that I didn't know exist or was too afraid to 
 
 This use `python >= 3.6`.
 
-GitHub has problem rendering Jupyter notebook so I copied the content here. I still keep the notebook in case you want to clone and run it on your machine.
+GitHub has problem rendering Jupyter notebook so I copied the content here. I still keep the notebook in case you want to clone and run it on your machine, but you can also click the Binder badge below and run it in your browser.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chiphuyen/python-is-cool/master?urlpath=lab/tree/cool-python-tips.ipynb)
 
 ## 1. Lambda, map, filter, reduce
 The lambda keyword is used to create inline functions. The functions`square_fn` and `square_ld` below are identical.
