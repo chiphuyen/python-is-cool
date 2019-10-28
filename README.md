@@ -320,8 +320,8 @@ class Node:
         self.value = value
         self.left = left
         self.right = right
-        
-    def __repr__(self):    
+
+    def __repr__(self):
         strings = [f'value: {self.value}']
         strings.append(f'left: {self.left.value}' if self.left else 'left: None')
         strings.append(f'right: {self.right.value}' if self.right else 'right: None')
@@ -343,13 +343,13 @@ class Node:
         self.value = value
         self.left = left
         self.right = right
-    
+
     def __eq__(self, other):
         return self.value == other.value
-    
+
     def __lt__(self, other):
         return self.value < other.value
-    
+
     def __ge__(self, other):
         return self.value >= other.value
 
@@ -444,23 +444,22 @@ Often, you run into this wild import `*` that looks something like this:
 This is irresponsible because it will import everything in module, even the imports of that module. For example, if `parts.py` looks like this:
 
 `parts.py`
-
 ```python
 import numpy
 import tensorflow
-    
+
 class Encoder:
     ...
-    
+
 class Decoder:
     ...
-        
+
 class Loss:
     ...
 
 def helper(*args, **kwargs):
     ...
-    
+
 def utils(*args, **kwargs):
     ...
 ```
@@ -470,11 +469,11 @@ Since `parts.py` doesn't have `__all__` specified, `file.py` will import Encoder
 If we intend that only Encoder, Decoder, and Loss are ever to be imported and used in another module, we should specify that in `parts.py` using the `__all__` keyword.
 
 `parts.py`
- ```python
+```python
  __all__ = ['Encoder', 'Decoder', 'Loss']
 import numpy
 import tensorflow
-    
+
 class Encoder:
     ...
 ```
