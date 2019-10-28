@@ -213,8 +213,29 @@ nested_lists = [[1, 2], [[3, 4], [5, 6], [[7, 8], [9, 10], [[11, [12, 13]]]]]]
 flatten = lambda x: [y for l in x for y in flatten(l)] if type(x) is list else [x]
 flatten(nested_lists)
 
+==> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
 # This line of code is from
 # https://github.com/sahands/python-by-example/blob/master/python-by-example.rst#flattening-lists
+```
+
+If we reach max recursion depth (i.e. stack overflows) when `nested_lists` is too deep, we can do this instead.
+```python
+
+def flatten2(nested_list):
+    nested_list = nested_list.copy()
+    while nested_list:
+        sublist = nested_list.pop(0)
+        if isinstance(sublist, list):
+            nested_list = sublist + nested_list
+        else:
+            yield sublist
+list(flatten2(nested_lists))  # function returns a generator
+
+==> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+# This code is adapted from
+# https://gist.github.com/Wilfred/7889868
 ```
 
 ### 2.5 List vs generator
