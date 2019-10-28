@@ -188,7 +188,7 @@ print(elems)
 
 If we want to insert 3 values `0.2, 0.3, 0.5` between element at index 0 and element at index 1:
 
-```pyhon
+```python
 elems = list(range(10))
 elems[1:1] = [0.2, 0.3, 0.5]
 print(elems)
@@ -437,8 +437,9 @@ print(model3.__dict__)
 Often, you run into this wild import `*` that looks something like this:
 
 `file.py`
-    
+```python
     from parts import *
+```
 
 This is irresponsible because it will import everything in module, even the imports of that module. For example, if `parts.py` looks like this:
 
