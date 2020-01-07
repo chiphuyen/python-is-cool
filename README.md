@@ -130,6 +130,16 @@ print(d)
     4
 ```
 
+Unpacking lists using the `*` operator. This can be useful to pass the values to a function.
+
+```python
+print(elems)
+==> [1, 2, 3, 4]
+print(*elems)
+==> 1 2 3 4
+
+```
+
 ### 2.2 Slicing
 We know that we can reverse a list using `[::-1]`.
 
